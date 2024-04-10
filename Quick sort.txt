@@ -1,0 +1,191 @@
+import random as random
+import time
+
+def partition(arr,l,h):
+  
+  pivot=arr[h]
+  i=l-1 
+  for j in range(l,h):
+    if arr[j]<=pivot:
+      i=i+1
+      temp=arr[i]
+      arr[i]=arr[j]
+      arr[j]=temp
+  temp=arr[i+1]
+  arr[i+1]=arr[h]
+  arr[h]=temp
+  return i+1
+
+def quicksort(a,l,h):
+  if l<h:
+    p=partition(a,l,h)
+    quicksort(a,l,p-1)
+    quicksort(a,p+1,h)
+
+
+def generatenumbers():
+    list20s=[]
+    #generating file with upto 20 random numbers    
+    with open('arr20.txt','w') as file:
+        for j in range(20):
+          list1=random.sample(range(0,100),3)
+          list20s.append(list1)
+        for num in list20s:
+            k=" ".join(str(i)for i in num)
+            file.write(k)
+            file.write("\n")
+    list100s=[]
+    #generating file with upto 100 random numbers  
+    with open('arr100.txt','w') as file:
+        for j in range(100):
+          list2=random.sample(range(0,100),3)
+          list100s.append(list2)
+        for num in list100s:
+            k=" ".join(str(i)for i in num)
+            file.write(k)
+            file.write("\n")
+    list1000s=[]
+    #generating file with upto 1000 random numbers  
+    with open('arr1000.txt','w') as file:
+        for j in range(1000):
+          list3=random.sample(range(0,100),3)
+          list1000s.append(list3)
+        for num in list1000s:
+            k=" ".join(str(i)for i in num)
+            file.write(k)
+            file.write("\n")
+    list4000s=[]
+    #generating file with upto 4000 random numbers          
+    with open('arr4000.txt','w') as file:
+        for j in range(4000):
+          list4=random.sample(range(0,100),3)
+          list4000s.append(list4)
+        for num in list4000s:
+            k=" ".join(str(i)for i in num)
+            file.write(k)
+            file.write("\n") 
+def readFileGenerated(file_name):
+    outputArray=[]
+    fileGenerated = open(file_name, "r")
+    #opens the file in read mode
+    for sentence in fileGenerated.readlines():
+        arr=list(sentence.split())
+        #puts the data into an array
+        outputArray.append([int(sentence) for sentence in arr])
+    fileGenerated.close()
+    return outputArray 
+
+#calling the function to gerate files with random numbers   
+generatenumbers()
+lis1 = readFileGenerated("arr20.txt")
+lis20=[]
+data1=[]
+  
+for i in lis1:
+    l=[j for j in i]
+    l.append(sum(i))
+    data1.append(sum(i))
+    lis20.append(l)
+h=len(data1)-1
+starttime20s=time.time()
+CallToFunction20=quicksort(data1, 0,h)
+endtime20s=time.time()
+timetaken20sFile = endtime20s*1000000 - starttime20s*1000000
+
+lis2 = readFileGenerated("arr100.txt")
+lis100=[]
+data2=[]
+for i in lis2:
+    l=[j for j in i]
+    l.append(sum(i))
+    data2.append(sum(i))
+    lis100.append(l)
+h=len(data2)-1
+starttime100s=time.time()
+CallToFunction100=quicksort(data2,0,h)
+endtime100s=time.time()
+timetaken100sFile = endtime100s*1000000 - starttime100s*1000000
+
+lis3 = readFileGenerated("arr1000.txt")
+lis1000=[]
+data3=[]
+for i in lis3:
+    l=[j for j in i]
+    l.append(sum(i))
+    data3.append(sum(i))
+    lis1000.append(l)
+h=len(data3)-1
+starttime1000s=time.time()
+CallToFunction1000=quicksort(data3,0,h)
+endtime1000s=time.time()
+timetaken1000sFile= endtime1000s*1000000 - starttime1000s*1000000
+
+lis4 = readFileGenerated("arr4000.txt")
+lis4000=[]
+data4=[]
+for i in lis4:
+    l=[j for j in i]
+    l.append(sum(i))
+    data4.append(sum(i))
+    lis4000.append(l)
+h=len(data4)-1
+starttime4000s=time.time()
+CallToFunction4000=quicksort(data4,0,h)
+endtime4000s=time.time()
+timetaken4000sFile= endtime4000s*1000000 - starttime4000s*1000000
+
+def last(k,l):
+    z=[]
+    for i in l:
+        for j in l:
+            if i==j[3]:
+                z.append(j)
+                l.remove(j)
+                break
+    return z      
+        
+            
+CallToFunction20s=last(CallToFunction20,lis20)
+CallToFunction100s=last(CallToFunction100,lis100)
+CallToFunction1000s=last(CallToFunction1000,lis1000)
+CallToFunction4000s=last(CallToFunction4000,lis4000)
+
+
+print("Time taken to sort array of size 20",timetaken20sFile,"Time taken to sort array of size 100",timetaken100sFile,"Time taken to sort array of size 1000",timetaken1000sFile,"Time taken to sort array of size 4000",timetaken4000sFile)
+#print(CallToFunction20s,CallToFunction100s,CallToFunction1000s,CallToFunction4000s)
+
+
+with open('arrQK_O_20.txt','w') as file:
+        for num in CallToFunction20s:
+            k=" ".join(str(i)for i in num)
+            file.write(k)
+            file.write("\n")
+            
+with open('arrQK_O_100.txt','w') as file:
+        for num in CallToFunction100s:
+            k=" ".join(str(i)for i in num)
+            file.write(k)
+            file.write("\n")
+            
+with open('arrQK_O_1000.txt','w') as file:
+        for num in CallToFunction1000s:
+            k=" ".join(str(i)for i in num)
+            file.write(k)
+            file.write("\n")
+            
+with open('arrQK_O_4000.txt','w') as file:
+        for num in CallToFunction4000s:
+            k=" ".join(str(i)for i in num)
+            file.write(k)
+            file.write("\n")
+
+
+
+
+
+
+            
+            
+
+
+

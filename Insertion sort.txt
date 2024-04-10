@@ -1,0 +1,151 @@
+import random as random
+import time
+
+
+def insertionSortAlgorithm(GeneratedArray,position=lambda o: o):
+    for p in range(1, len(GeneratedArray)):
+        persam = GeneratedArray[p]
+        pos = p - 1
+        while position(GeneratedArray[pos])>position(persam) and pos >= 0 :
+            GeneratedArray[pos + 1] = GeneratedArray[pos]
+            pos = pos-1
+        GeneratedArray[pos + 1] = persam
+    return GeneratedArray
+def generatenumbers():
+    list20s=[]
+    #generating file with upto 20 random numbers    
+    with open('array20file.txt','w') as file:
+        for j in range(20):
+          list1=random.sample(range(0,100),3)
+          list20s.append(list1)
+        for num in list20s:
+            k=" ".join(str(i)for i in num)
+            file.write(k)
+            file.write("\n")
+    list100s=[]
+    #generating file with upto 100 random numbers  
+    with open('array100file.txt','w') as file:
+        for j in range(100):
+          list2=random.sample(range(0,100),3)
+          list100s.append(list2)
+        for num in list100s:
+            k=" ".join(str(i)for i in num)
+            file.write(k)
+            file.write("\n")
+    list1000s=[]
+    #generating file with upto 1000 random numbers  
+    with open('array1000file.txt','w') as file:
+        for j in range(1000):
+          list3=random.sample(range(0,100),3)
+          list1000s.append(list3)
+        for num in list1000s:
+            k=" ".join(str(i)for i in num)
+            file.write(k)
+            file.write("\n")
+    list4000s=[]
+    #generating file with upto 4000 random numbers          
+    with open('array4000file.txt','w') as file:
+        for j in range(4000):
+          list4=random.sample(range(0,100),3)
+          list4000s.append(list4)
+        for num in list4000s:
+            k=" ".join(str(i)for i in num)
+            file.write(k)
+            file.write("\n") 
+def readFileGenerated(file_name):
+    outputArray=[]
+    fileGenerated = open(file_name, "r")
+    #opens the file in read mode
+    for sentence in fileGenerated.readlines():
+        arr=list(sentence.split())
+        #puts the data into an array
+        outputArray.append([int(sentence) for sentence in arr])
+    fileGenerated.close()
+    return outputArray 
+
+#calling the function to gerate files with random numbers   
+generatenumbers()
+lis1 = readFileGenerated("array20file.txt")
+lis20=[]
+for i in lis1:    
+    l=[j for j in i]
+    l.append(sum(i))
+    lis20.append(l)
+starttime20s=time.time()
+CallToFunction20=insertionSortAlgorithm(lis20, position=lambda x: x[3])
+endtime20s=time.time()
+timetaken20sFile = endtime20s*1000000 - starttime20s*1000000
+
+lis2 = readFileGenerated("array100file.txt")
+lis100=[]
+for i in lis2:
+    l=[j for j in i]
+    l.append(sum(i))
+    lis100.append(l)
+starttime100s=time.time()
+CallToFunction100=insertionSortAlgorithm(lis100, position=lambda x: x[3])
+endtime100s=time.time()
+timetaken100sFile = endtime100s*1000000 - starttime100s*1000000
+
+lis3 = readFileGenerated("array1000file.txt")
+lis1000=[]
+for i in lis3:
+    l=[j for j in i]
+    l.append(sum(i))
+    lis1000.append(l)
+starttime1000s=time.time()
+CallToFunction1000=insertionSortAlgorithm(lis1000, position=lambda x: x[3])
+endtime1000s=time.time()
+timetaken1000sFile= endtime1000s*1000000 - starttime1000s*1000000
+
+lis4 = readFileGenerated("array4000file.txt")
+lis4000=[]
+for i in lis4:
+    l=[j for j in i]
+    l.append(sum(i))
+    lis4000.append(l)
+starttime4000s=time.time()
+CallToFunction4000=insertionSortAlgorithm(lis4000, position=lambda x: x[3])
+endtime4000s=time.time()
+timetaken4000sFile= endtime4000s*1000000 - starttime4000s*1000000
+
+ 
+
+
+print("Time taken to sort array of size 20",timetaken20sFile,"Time taken to sort array of size 100",timetaken100sFile,"Time taken to sort array of size 1000",timetaken1000sFile,"Time taken to sort array of size 4000",timetaken4000sFile)
+print(CallToFunction20,CallToFunction100,CallToFunction1000,CallToFunction4000)
+
+
+
+with open('arrIS_O_20.txt','w') as file:
+        for num in CallToFunction20:
+            k=" ".join(str(i)for i in num)
+            file.write(k)
+            file.write("\n")
+            
+with open('arrIS_O_100.txt','w') as file:
+        for num in CallToFunction100:
+            k=" ".join(str(i)for i in num)
+            file.write(k)
+            file.write("\n")
+            
+with open('arrIS_O_1000.txt','w') as file:
+        for num in CallToFunction1000:
+            k=" ".join(str(i)for i in num)
+            file.write(k)
+            file.write("\n")
+            
+with open('arrIS_O_4000.txt','w') as file:
+        for num in CallToFunction4000:
+            k=" ".join(str(i)for i in num)
+            file.write(k)
+            file.write("\n")
+
+
+
+
+            
+            
+
+
+
